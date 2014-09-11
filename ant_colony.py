@@ -64,10 +64,20 @@ class Window:
                                                      20 * (i + 1), 20 * (j + 1),
                                                      fill="#FFFFFF", outline='black'))
     #draw ants
+    '''
     for la in ants:
       la.rect = self.w.create_rectangle(20 * la.pos[0] + 5, 20 * la.pos[1] + 5,
                                         20 * (la.pos[0] + 1) - 5, 20 * (la.pos[1] + 1) - 5,
                                         fill="#000", outline='black')
+    '''
+    b = my_map.begin
+    e = my_map.end
+    self.w.create_oval(20 * b[0] + 2, 20 * b[1] + 2,
+                       20 * (b[0] + 1) - 2, 20 * (b[1] + 1) - 2,
+                       fill="blue")
+    self.w.create_oval(20 * e[0] + 2, 20 * e[1] + 2,
+                       20 * (e[0] + 1) - 2, 20 * (e[1] + 1) - 2,
+                       fill="orange")
     self.w.pack()
 
   def update_rects(self, pos, pheromon):
@@ -117,7 +127,7 @@ def compute():
           #Ant coming back home
           n = ant.path.pop()
           ant.pos = n
-          #w.coords(ant.rect, n[0] * 20 + 5, n[1] * 20 + 5, (n[0]+1) * 20 - 5, (n[1]+1) * 20 - 5)
+          #my_win.w.coords(ant.rect, n[0] * 20 + 5, n[1] * 20 + 5, (n[0]+1) * 20 - 5, (n[1]+1) * 20 - 5)
           my_map.squares[n[0]][n[1]] += ant.pheromon
         else:
           #Ant came back to home
@@ -128,12 +138,12 @@ def compute():
         ant.pos = n
         ant.path.append(n)
         #print n
-        #w.coords(ant.rect, n[0] * 20 + 5, n[1] * 20 + 5, (n[0]+1) * 20 - 5, (n[1]+1) * 20 - 5)
+        #my_win.w.coords(ant.rect, n[0] * 20 + 5, n[1] * 20 + 5, (n[0]+1) * 20 - 5, (n[1]+1) * 20 - 5)
         #map.squares[n[0]][n[1]] += 0.6
         if n == my_map.end:
           ant.reached_goal = True
           ant.pheromon = pheromon_quantity / len(ant.path)
-          my_win.w.itemconfig(ant.rect, fill='#f00')
+          #my_win.w.itemconfig(ant.rect, fill='#f00')
       #w.coords(ant.rect, n[0] * 20 + 5, n[1] * 20 + 5, (n[0]+1) * 20 - 5, (n[1]+1) * 20 - 5)
       my_win.update_rects(n, my_map.squares[n[0]][n[1]])
     my_win.w.update()
