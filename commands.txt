@@ -1,0 +1,6 @@
+# fail2ban :
+
+sudo vim /etc/fail2ban/jail.local //config
+tail /var/log/fail2ban.log //log
+sudo fail2ban-client reload //reload
+sudo fail2ban-client status ssh //status
